@@ -426,6 +426,59 @@
     text-transform: uppercase; color: rgba(255,255,255,0.35);
   }
 
+  /* ── MOBILE ── */
+  @media (max-width: 480px) {
+    /* Nav: scroll horizontal em vez de quebrar linha */
+    nav {
+      gap: 0; padding: 0;
+      justify-content: flex-start;
+      overflow-x: auto; -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+    nav::-webkit-scrollbar { display: none; }
+    nav a {
+      flex-shrink: 0;
+      padding: 1rem 1.1rem;
+      font-size: 0.62rem; letter-spacing: 0.12em;
+      white-space: nowrap;
+    }
+
+    /* Hero */
+    #hero { padding: 5rem 1.5rem 4rem; }
+    .hero-date {
+      font-size: 0.68rem; letter-spacing: 0.1em;
+      line-height: 1.6;
+    }
+    .countdown-row { gap: 1.5rem; margin-top: 2rem; }
+    .countdown-num { font-size: 2.2rem; }
+    .scroll-hint { right: auto; left: 50%; }
+
+    /* Sections */
+    section { padding: 4rem 1.5rem; }
+    .section-title { font-size: clamp(1.8rem, 7vw, 2.8rem); }
+    .apresentacao-text { font-size: 1.1rem; }
+
+    /* Info grid já tem media query mas ajusta padding */
+    .info-card { padding: 1.8rem 1.2rem; }
+    .info-card-main { font-size: 1.6rem; }
+    .map-wrapper { height: 280px; }
+
+    /* Presentes */
+    .gifts-grid { grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .gift-name { font-size: 0.95rem; }
+    .gift-price { font-size: 0.85rem; }
+    .gift-body { padding: 0.9rem; }
+
+    /* RSVP */
+    .rsvp-form { gap: 1rem; }
+    .rsvp-input { padding: 0.75rem 0.9rem; font-size: 0.85rem; }
+  }
+
+  @media (max-width: 360px) {
+    .gifts-grid { grid-template-columns: 1fr; }
+    nav a { padding: 1rem 0.9rem; font-size: 0.58rem; }
+  }
+
   /* ── TWEAKS PANEL ── */
   #tweaks-panel {
     display: none; position: fixed; bottom: 1.5rem; right: 1.5rem;
