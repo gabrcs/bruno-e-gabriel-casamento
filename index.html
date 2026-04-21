@@ -453,8 +453,8 @@
 <nav>
   <a href="#apresentacao">Sobre</a>
   <a href="#quando-onde">Quando & Onde</a>
-  <a href="#rsvp">Confirmação</a>
   <a href="#presentes">Presentes</a>
+  <a href="#rsvp">Confirmação</a>
 </nav>
 
 <!-- SVG watercolor filter (hidden) -->
@@ -551,21 +551,6 @@
 </section>
 
 <!-- PRESENTES -->
-<section id="rsvp">
-  <div class="container">
-    <span class="section-tag">Confirme sua presença</span>
-    <h2 class="section-title">Esperamos <em style="color:var(--gold)">por você</em></h2>
-    <div class="section-rule"></div>
-    <div class="gforms-wrap">
-      <iframe
-        src="https://docs.google.com/forms/d/e/1FAIpQLSeITFwlQVem0ML3sccLNQg3IUqGW6IAvRh2Zx5nBzzdpKxjAg/viewform?embedded=true"
-        width="100%" height="1088" frameborder="0" marginheight="0" marginwidth="0"
-        style="max-width:640px;display:block;margin:0 auto;border-radius:2px;">
-        Carregando…
-      </iframe>
-    </div>
-  </div>
-</section>
 <section id="presentes">
   <div class="container">
     <span class="section-tag">Lista de presentes</span>
@@ -587,6 +572,53 @@
 </section>
 
 <!-- RSVP -->
+<section id="rsvp">
+  <div class="container">
+    <span class="section-tag">Confirme sua presença</span>
+    <h2 class="section-title">Esperamos <em style="color:var(--gold)">por você</em></h2>
+    <div class="section-rule"></div>
+    <div id="rsvp-form-wrap">
+      <form class="rsvp-form" onsubmit="submitRSVP(event)">
+        <div class="rsvp-field">
+          <label class="rsvp-label">Seu nome completo</label>
+          <input class="rsvp-input" type="text" placeholder="Ex: Maria Silva" required id="rsvp-name">
+        </div>
+        <div class="rsvp-field">
+          <label class="rsvp-label">E-mail</label>
+          <input class="rsvp-input" type="email" placeholder="seu@email.com" id="rsvp-email">
+        </div>
+        <div class="rsvp-field">
+          <label class="rsvp-label">Confirmação</label>
+          <select class="rsvp-input" id="rsvp-confirm" required>
+            <option value="">Selecione...</option>
+            <option value="sim">✓ Sim, estarei presente!</option>
+            <option value="talvez">? Talvez, vou confirmar depois</option>
+            <option value="nao">✗ Infelizmente não poderei ir</option>
+          </select>
+        </div>
+        <div class="rsvp-field">
+          <label class="rsvp-label">Número de acompanhantes</label>
+          <select class="rsvp-input" id="rsvp-guests">
+            <option value="0">Apenas eu</option>
+            <option value="1">+ 1 acompanhante</option>
+            <option value="2">+ 2 acompanhantes</option>
+            <option value="3">+ 3 ou mais</option>
+          </select>
+        </div>
+        <div class="rsvp-field">
+          <label class="rsvp-label">Mensagem (opcional)</label>
+          <input class="rsvp-input" type="text" placeholder="Uma mensagem carinhosa..." id="rsvp-msg">
+        </div>
+        <button type="submit" class="rsvp-submit">Confirmar Presença</button>
+      </form>
+    </div>
+    <div class="rsvp-success" id="rsvp-success">
+      <p style="font-size:2rem;margin-bottom:1rem;">💍</p>
+      <p class="rsvp-success-title">Confirmação recebida!</p>
+      <p class="rsvp-success-sub">Obrigado por confirmar. <br>Mal podemos esperar para celebrar com você!</p>
+    </div>
+  </div>
+</section>
 
 <!-- FOOTER -->
 <footer>
@@ -617,9 +649,9 @@
       <div class="modal-success">
         <div class="modal-success-icon">💝</div>
         <h3 class="modal-success-title">Que lindo!</h3>
-        <p class="modal-success-sub">Seu presente foi registrado.<br>Clique abaixo para ver os detalhes e realizar o pagamento.</p>
+        <p class="modal-success-sub">Seu presente foi registrado.<br>Agora clique abaixo para concluir o pagamento.</p>
         <a id="modal-pay-link" href="#" class="modal-pay-btn" target="_blank" rel="noopener">
-          Ver detalhes e pagar →
+          Ir para o pagamento →
         </a>
         <button class="modal-cancel" style="width:100%;margin-top:0.8rem" onclick="closeModal()">Fechar</button>
       </div>
