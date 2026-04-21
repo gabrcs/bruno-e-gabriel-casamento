@@ -688,9 +688,16 @@
       <div class="modal-success">
         <div class="modal-success-icon">💝</div>
         <h3 class="modal-success-title">Que lindo!</h3>
-        <p class="modal-success-sub">Seu presente foi registrado.<br>Agora clique abaixo para concluir o pagamento.</p>
-        <a id="modal-pay-link" href="#" class="modal-pay-btn" target="_blank" rel="noopener">
-          Ir para o pagamento →
+        <p class="modal-success-sub">Seu presente foi registrado.<br>Escolha como deseja pagar:</p>
+        <a id="modal-pay-pix" href="#" class="modal-pay-btn" target="_blank" rel="noopener"
+          style="display:flex;align-items:center;justify-content:center;gap:0.6rem;margin-top:1.2rem;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M11.9 2C6.5 2 2 6.5 2 11.9S6.5 22 11.9 22 22 17.4 22 11.9 17.4 2 11.9 2zm4.6 13.6l-2.4-2.4c-.4.2-.9.3-1.4.3s-1-.1-1.4-.3l-2.4 2.4c-.2.2-.5.2-.7 0-.2-.2-.2-.5 0-.7l2.4-2.4c-.2-.4-.3-.9-.3-1.4s.1-1 .3-1.4l-2.4-2.4c-.2-.2-.2-.5 0-.7.2-.2.5-.2.7 0l2.4 2.4c.4-.2.9-.3 1.4-.3s1 .1 1.4.3l2.4-2.4c.2-.2.5-.2.7 0 .2.2.2.5 0 .7l-2.4 2.4c.2.4.3.9.3 1.4s-.1 1-.3 1.4l2.4 2.4c.2.2.2.5 0 .7-.2.2-.5.2-.7 0z"/></svg>
+          Opção 1 · PIX
+        </a>
+        <a id="modal-pay-card" href="#" class="modal-pay-btn" target="_blank" rel="noopener"
+          style="display:flex;align-items:center;justify-content:center;gap:0.6rem;margin-top:0.7rem;background:transparent;color:var(--navy);border:1px solid var(--navy);">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+          Opção 2 · Cartão de Crédito
         </a>
         <button class="modal-cancel" style="width:100%;margin-top:0.8rem" onclick="closeModal()">Fechar</button>
       </div>
@@ -769,7 +776,8 @@ function loadGifts() {
         category:    (g.category || '').toLowerCase(),
         price:       g.price || '',
         stock:       Number(g.stock) || 1,
-        paymentLink: g.paymentLink || '#',
+        pixLink:     g.pixLink || g.paymentLink || '#',
+        cardLink:    g.cardLink || '#',
         photo:       g.photo || '',
         available:   Number(g.available),
         bought:      Number(g.bought)
@@ -846,7 +854,8 @@ function openModal(id) {
   const modalImg = document.getElementById('modal-img');
   if (gift.photo) { modalImg.src = gift.photo; modalImg.style.display = 'block'; }
   else { modalImg.style.display = 'none'; }
-  document.getElementById('modal-pay-link').href = gift.paymentLink || '#';
+  document.getElementById('modal-pay-pix').href = gift.pixLink || '#';
+  document.getElementById('modal-pay-card').href = gift.cardLink || '#';
   document.getElementById('buyer-name').value = '';
   document.getElementById('buyer-msg').value = '';
   document.getElementById('modal-form-view').style.display = '';
