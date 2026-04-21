@@ -435,21 +435,17 @@
 
   /* ── MOBILE ── */
   @media (max-width: 480px) {
-    .hero-bg img { object-position: center 35%; }
+    .hero-bg img { object-position: center 18%; }
 
-    /* Nav: scroll horizontal em vez de quebrar linha */
+    /* Nav: 4 itens distribuídos igualmente */
     nav {
       gap: 0; padding: 0;
-      justify-content: flex-start;
-      overflow-x: auto; -webkit-overflow-scrolling: touch;
-      scrollbar-width: none;
+      display: grid; grid-template-columns: repeat(4, 1fr);
     }
-    nav::-webkit-scrollbar { display: none; }
     nav a {
-      flex-shrink: 0;
-      padding: 1rem 1.1rem;
-      font-size: 0.62rem; letter-spacing: 0.12em;
-      white-space: nowrap;
+      padding: 0.9rem 0.3rem;
+      font-size: 0.55rem; letter-spacing: 0.07em;
+      white-space: nowrap; text-align: center;
     }
 
     /* Hero */
