@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bruno & Gabriel — 06.06.2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy: #0f1f3d;
+    --navy-mid: #1a3160;
+    --navy-light: #243e7a;
+    --gold: #c9a96e;
+    --gold-light: #e8d5aa;
+    --white: #fdfcf9;
+    --off-white: #f4f0e8;
+    --text: #0f1f3d;
+    --serif: 'Cormorant Garamond', Georgia, serif;
+    --sans: 'Jost', sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--white);
+    color: var(--text);
+    font-family: var(--sans);
+    font-weight: 300;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; justify-content: center; gap: 2.5rem;
+    padding: 1.2rem 2rem;
+    background: rgba(15,31,61,0.92);
+    backdrop-filter: blur(12px);
+  }
+  nav a {
+    color: rgba(255,255,255,0.75); text-decoration: none;
+    font-family: var(--sans); font-size: 0.72rem; letter-spacing: 0.18em;
+    text-transform: uppercase; transition: color 0.2s;
+  }
+  nav a:hover { color: var(--white); }
+
+  /* ── HERO ── */
+  #hero {
+    min-height: 100vh;
+    background: var(--navy);
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    text-align: center;
+    padding: 6rem 2rem 4rem;
+    position: relative; overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute; inset: 0; z-index: 0;
+  }
+  .hero-bg img {
+    width: 100%; height: 100%; object-fit: cover;
+    filter: url(#watercolor) saturate(1.1) brightness(0.72);
+    transform: scale(1.04);
+  }
+  /* subtle vignette */
+  .hero-bg::after {
+    content: ''; position: absolute; inset: 0;
+    background: radial-gradient(ellipse at center, transparent 30%, rgba(8,15,30,0.7) 100%);
+  }
+  .hero-ornament {
+    position: absolute; opacity: 0.12;
+    width: 600px; height: 600px;
+    border-radius: 50%;
+    border: 1px solid var(--gold);
+    z-index: 1;
+    pointer-events: none;
+  }
+  .hero-ornament.r1 { width: 700px; height: 700px; }
+  .hero-ornament.r2 { width: 500px; height: 500px; }
+  .hero-ornament.r3 { width: 320px; height: 320px; }
+
+  /* hero content above bg */
+  #hero > *:not(.hero-bg):not(.hero-ornament) { position: relative; z-index: 2; }
+
+  .hero-date-label {
+    font-family: var(--sans); font-size: 0.7rem; letter-spacing: 0.3em;
+    text-transform: uppercase; color: rgba(255,255,255,0.7);
+    margin-bottom: 2rem;
+  }
+  .hero-names {
+    font-family: var(--serif); font-size: clamp(4rem, 10vw, 8rem);
+    font-weight: 300; color: var(--white); line-height: 1;
+    letter-spacing: 0.02em;
+  }
+  .hero-names span { color: var(--white); font-style: italic; }
+  .hero-ampersand {
+    font-family: var(--serif); font-size: clamp(2rem, 5vw, 4rem);
+    color: rgba(255,255,255,0.55); display: block; margin: 0.4rem 0;
+    font-style: italic; font-weight: 300;
+  }
+  .hero-date {
+    margin-top: 2.5rem;
+    font-family: var(--sans); font-size: 0.78rem;
+    letter-spacing: 0.25em; text-transform: uppercase;
+    color: var(--gold-light); font-weight: 400;
+  }
+  .hero-divider {
+    width: 60px; height: 1px; background: rgba(255,255,255,0.35);
+    margin: 1.5rem auto;
+  }
+  .countdown-row {
+    display: flex; gap: 2.5rem; margin-top: 2.5rem;
+    justify-content: center;
+  }
+  .countdown-unit { text-align: center; }
+  .countdown-num {
+    font-family: var(--serif); font-size: 2.8rem;
+    color: var(--white); line-height: 1; font-weight: 300;
+  }
+  .countdown-label {
+    font-family: var(--sans); font-size: 0.6rem;
+    letter-spacing: 0.2em; text-transform: uppercase;
+    color: rgba(255,255,255,0.6); margin-top: 0.3rem;
+  }
+  .scroll-hint {
+    position: absolute; bottom: 2rem; left: 50%;
+    transform: translateX(-50%);
+    display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+    color: var(--gold); opacity: 0.5; font-size: 0.6rem;
+    letter-spacing: 0.2em; text-transform: uppercase;
+    animation: bounce 2s infinite;
+    z-index: 2;
+  }
+  @keyframes bounce { 0%,100%{transform:translateX(-50%) translateY(0)} 50%{transform:translateX(-50%) translateY(6px)} }
+
+  /* ── SECTIONS ── */
+  section { padding: 6rem 2rem; }
+
+  .section-tag {
+    font-family: var(--sans); font-size: 0.68rem; letter-spacing: 0.3em;
+    text-transform: uppercase; color: var(--navy-mid);
+    display: block; margin-bottom: 1rem; text-align: center;
+  }
+  .section-title {
+    font-family: var(--serif); font-size: clamp(2.2rem, 5vw, 3.5rem);
+    font-weight: 300; text-align: center; color: var(--navy);
+    line-height: 1.15; margin-bottom: 1rem;
+  }
+  .section-title em { font-style: italic; color: var(--navy-mid); }
+  .section-rule {
+    width: 50px; height: 1px; background: var(--navy);
+    margin: 0 auto 3rem; opacity: 0.2;
+  }
+  .container { max-width: 860px; margin: 0 auto; }
+
+  /* ── APRESENTAÇÃO ── */
+  #apresentacao { background: var(--off-white); }
+  .apresentacao-text {
+    font-family: var(--serif); font-size: clamp(1.2rem, 2.5vw, 1.6rem);
+    font-weight: 300; line-height: 1.8; text-align: center;
+    color: var(--navy-mid); font-style: italic;
+    max-width: 640px; margin: 0 auto;
+  }
+  .apresentacao-signature {
+    margin-top: 2.5rem; text-align: center;
+    font-family: var(--serif); font-size: 1.4rem;
+    color: var(--navy); font-style: italic;
+  }
+
+  /* ── QUANDO & ONDE ── */
+  #quando-onde { background: var(--white); }
+  .info-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 3rem; margin-bottom: 3rem; align-items: start;
+  }
+  @media(max-width:640px){ .info-grid { grid-template-columns: 1fr; } }
+  .info-card {
+    text-align: center; padding: 2.5rem 2rem;
+    border: 1px solid rgba(201,169,110,0.25);
+    border-radius: 2px;
+  }
+  .info-icon {
+    width: 42px; height: 42px; margin: 0 auto 1.2rem;
+    border: 1px solid rgba(15,31,61,0.25); border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--navy); font-size: 1.1rem;
+  }
+  .info-card-label {
+    font-family: var(--sans); font-size: 0.65rem; letter-spacing: 0.25em;
+    text-transform: uppercase; color: var(--navy-mid); margin-bottom: 0.8rem;
+  }
+  .info-card-main {
+    font-family: var(--serif); font-size: 1.9rem;
+    font-weight: 300; color: var(--navy); line-height: 1.2;
+  }
+  .info-card-sub {
+    font-family: var(--sans); font-size: 0.82rem;
+    color: #555; margin-top: 0.5rem; line-height: 1.5;
+  }
+  .map-wrapper {
+    width: 100%; height: 380px; border: 1px solid rgba(201,169,110,0.3);
+    border-radius: 2px; overflow: hidden;
+  }
+  .map-wrapper iframe { width: 100%; height: 100%; border: none; }
+
+  /* ── LISTA DE PRESENTES ── */
+  #presentes { background: var(--off-white); }
+
+  .filter-row {
+    display: flex; gap: 0.8rem; flex-wrap: wrap;
+    justify-content: center; margin-bottom: 2.5rem;
+  }
+  .filter-btn {
+    font-family: var(--sans); font-size: 0.68rem; letter-spacing: 0.15em;
+    text-transform: uppercase; padding: 0.5rem 1.2rem;
+    border: 1px solid rgba(15,31,61,0.3); background: transparent;
+    color: var(--navy); cursor: pointer; transition: all 0.2s;
+    border-radius: 1px;
+  }
+  .filter-btn:hover, .filter-btn.active {
+    background: var(--navy); color: var(--white);
+    border-color: var(--navy);
+  }
+
+  .gifts-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 1.8rem;
+  }
+  .gift-card {
+    background: var(--white);
+    border: 1px solid rgba(201,169,110,0.2);
+    border-radius: 2px; display: flex; flex-direction: column;
+    transition: transform 0.2s, box-shadow 0.2s; overflow: hidden;
+  }
+  .gift-card:hover { transform: translateY(-4px); box-shadow: 0 12px 36px rgba(15,31,61,0.1); }
+  .gift-card.bought { opacity: 0.5; pointer-events: none; }
+
+  /* photo area */
+  .gift-photo {
+    width: 100%; aspect-ratio: 4/3; overflow: hidden;
+    background: var(--off-white);
+    display: flex; align-items: center; justify-content: center;
+    position: relative;
+  }
+  .gift-photo img {
+    width: 100%; height: 100%; object-fit: cover;
+    transition: transform 0.4s;
+  }
+  .gift-card:hover .gift-photo img { transform: scale(1.04); }
+  .gift-photo-placeholder {
+    display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+    color: rgba(15,31,61,0.25); font-family: var(--sans); font-size: 0.65rem;
+    letter-spacing: 0.12em; text-transform: uppercase;
+  }
+  .bought-badge {
+    position: absolute; top: 0.7rem; right: 0.7rem;
+    background: var(--navy); color: var(--white);
+    font-family: var(--sans); font-size: 0.58rem; letter-spacing: 0.15em;
+    text-transform: uppercase; padding: 0.3rem 0.6rem; border-radius: 1px;
+  }
+
+  .gift-body { padding: 1.2rem 1.2rem 1.4rem; display: flex; flex-direction: column; flex: 1; }
+  .gift-category {
+    font-family: var(--sans); font-size: 0.58rem; letter-spacing: 0.22em;
+    text-transform: uppercase; color: var(--navy-mid); margin-bottom: 0.5rem; opacity: 0.7;
+  }
+  .gift-name {
+    font-family: var(--serif); font-size: 1.12rem;
+    color: var(--navy); font-weight: 400; line-height: 1.3;
+    flex: 1; margin-bottom: 0.6rem;
+  }
+  .gift-price {
+    font-family: var(--sans); font-size: 0.95rem;
+    color: var(--navy-mid); font-weight: 400; margin-bottom: 1rem;
+  }
+  .gift-btn {
+    font-family: var(--sans); font-size: 0.63rem; letter-spacing: 0.18em;
+    text-transform: uppercase; padding: 0.75rem 1rem;
+    background: var(--navy); color: var(--white); border: none;
+    cursor: pointer; transition: background 0.2s; border-radius: 1px;
+    text-align: center;
+  }
+  .gift-btn:hover { background: var(--navy-light); }
+  .gift-btn.bought-btn {
+    background: transparent; color: #aaa;
+    border: 1px solid #ddd; pointer-events: none;
+  }
+
+  /* Gift modal */
+  .modal-overlay {
+    display: none; position: fixed; inset: 0; z-index: 200;
+    background: rgba(15,31,61,0.6); backdrop-filter: blur(4px);
+    align-items: center; justify-content: center; padding: 2rem;
+  }
+  .modal-overlay.open { display: flex; }
+  .modal {
+    background: var(--white); max-width: 480px; width: 100%;
+    padding: 2.5rem 2rem; border-radius: 2px;
+    animation: modalIn 0.25s ease;
+  }
+  @keyframes modalIn { from{opacity:0;transform:translateY(16px)} to{opacity:1;transform:translateY(0)} }
+  .modal-title {
+    font-family: var(--serif); font-size: 1.8rem;
+    color: var(--navy); margin-bottom: 0.4rem;
+  }
+  .modal-subtitle {
+    font-family: var(--sans); font-size: 0.78rem;
+    color: #777; margin-bottom: 1.6rem; line-height: 1.5;
+  }
+  .modal-gift-name { font-family: var(--serif); font-size: 1.2rem; color: var(--navy-mid); }
+  .modal-gift-price { font-family: var(--sans); font-size: 1rem; color: var(--navy-mid); font-weight: 500; margin-top: 0.3rem; }
+  .modal-divider { height: 1px; background: rgba(201,169,110,0.3); margin: 1.4rem 0; }
+  .modal label {
+    display: block; font-family: var(--sans); font-size: 0.68rem;
+    letter-spacing: 0.15em; text-transform: uppercase; color: #666;
+    margin-bottom: 0.4rem;
+  }
+  .modal input {
+    width: 100%; padding: 0.75rem 1rem; border: 1px solid #ddd;
+    font-family: var(--sans); font-size: 0.9rem; color: var(--navy);
+    background: var(--off-white); border-radius: 1px;
+    outline: none; margin-bottom: 1rem; transition: border-color 0.2s;
+  }
+  .modal input:focus { border-color: var(--gold); }
+  .modal-actions { display: flex; gap: 0.8rem; margin-top: 0.5rem; }
+  .modal-confirm {
+    flex: 1; padding: 0.85rem; background: var(--navy); color: var(--white);
+    border: none; font-family: var(--sans); font-size: 0.72rem;
+    letter-spacing: 0.18em; text-transform: uppercase; cursor: pointer;
+    border-radius: 1px; transition: background 0.2s;
+  }
+  .modal-confirm:hover { background: var(--navy-light); }
+  .modal-cancel {
+    padding: 0.85rem 1.4rem; background: transparent; color: #888;
+    border: 1px solid #ddd; font-family: var(--sans); font-size: 0.72rem;
+    letter-spacing: 0.15em; text-transform: uppercase; cursor: pointer;
+    border-radius: 1px;
+  }
+  .modal-success { text-align: center; padding: 1rem 0 0.5rem; }
+  .modal-success-icon {
+    width: 56px; height: 56px; border-radius: 50%;
+    background: var(--navy); display: flex; align-items: center;
+    justify-content: center; margin: 0 auto 1.2rem;
+    font-size: 1.5rem;
+  }
+  .modal-success-title {
+    font-family: var(--serif); font-size: 1.6rem; color: var(--navy);
+    margin-bottom: 0.5rem;
+  }
+  .modal-success-sub {
+    font-family: var(--sans); font-size: 0.82rem; color: #666; line-height: 1.5;
+  }
+  .modal-pay-btn {
+    display: block; width: 100%; margin-top: 1.2rem;
+    padding: 0.9rem; background: var(--navy); color: var(--white);
+    border: none; font-family: var(--sans); font-size: 0.72rem;
+    letter-spacing: 0.18em; text-transform: uppercase; font-weight: 500;
+    cursor: pointer; border-radius: 1px; text-decoration: none;
+    text-align: center; transition: background 0.2s;
+  }
+  .modal-pay-btn:hover { background: var(--navy-light); }
+  .modal-img {
+    width: 100%; max-height: 180px; object-fit: cover;
+    border-radius: 1px; margin-bottom: 1rem;
+  }
+
+  /* ── RSVP ── */
+  #rsvp { background: var(--navy); }
+  #rsvp .section-tag { color: rgba(255,255,255,0.6); }
+  #rsvp .section-title { color: var(--off-white); }
+  #rsvp .section-rule { background: rgba(255,255,255,0.25); opacity: 1; }
+  #rsvp .apresentacao-text { color: rgba(255,255,255,0.7); }
+
+  .rsvp-form {
+    max-width: 540px; margin: 0 auto;
+    display: flex; flex-direction: column; gap: 1.2rem;
+  }
+  .rsvp-field { display: flex; flex-direction: column; gap: 0.4rem; }
+  .rsvp-label {
+    font-family: var(--sans); font-size: 0.68rem; letter-spacing: 0.15em;
+    text-transform: uppercase; color: rgba(255,255,255,0.65);
+  }
+  .rsvp-input {
+    padding: 0.85rem 1.1rem; background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.15); color: var(--white);
+    font-family: var(--sans); font-size: 0.9rem; border-radius: 1px;
+    outline: none; transition: border-color 0.2s;
+  }
+  .rsvp-input:focus { border-color: var(--gold); }
+  .rsvp-input option { background: var(--navy); }
+  .rsvp-submit {
+    margin-top: 0.5rem; padding: 1rem; background: var(--white);
+    color: var(--navy); border: none; font-family: var(--sans);
+    font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase;
+    font-weight: 500; cursor: pointer; border-radius: 1px;
+    transition: background 0.2s;
+  }
+  .rsvp-submit:hover { background: var(--off-white); }
+  .rsvp-success {
+    display: none; text-align: center; padding: 2.5rem;
+    border: 1px solid rgba(201,169,110,0.3); border-radius: 2px;
+  }
+  .rsvp-success-title {
+    font-family: var(--serif); font-size: 2rem; color: var(--white); margin-bottom: 0.8rem;
+  }
+  .rsvp-success-sub { font-family: var(--sans); font-size: 0.85rem; color: rgba(255,255,255,0.6); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: #080f1f; padding: 3rem 2rem; text-align: center;
+  }
+  .footer-names {
+    font-family: var(--serif); font-size: 1.8rem; color: var(--off-white);
+    font-style: italic; margin-bottom: 0.5rem;
+  }
+  .footer-date {
+    font-family: var(--sans); font-size: 0.68rem; letter-spacing: 0.25em;
+    text-transform: uppercase; color: rgba(255,255,255,0.35);
+  }
+
+  /* ── TWEAKS PANEL ── */
+  #tweaks-panel {
+    display: none; position: fixed; bottom: 1.5rem; right: 1.5rem;
+    z-index: 999; background: var(--white); border: 1px solid rgba(201,169,110,0.4);
+    border-radius: 4px; padding: 1.4rem; width: 240px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+  }
+  #tweaks-panel h3 {
+    font-family: var(--sans); font-size: 0.7rem; letter-spacing: 0.2em;
+    text-transform: uppercase; color: var(--navy); margin-bottom: 1rem;
+  }
+  .tweak-row { margin-bottom: 1rem; }
+  .tweak-row label {
+    display: block; font-family: var(--sans); font-size: 0.65rem;
+    letter-spacing: 0.12em; text-transform: uppercase; color: #777;
+    margin-bottom: 0.4rem;
+  }
+  .tweak-row input[type=color] { width: 100%; height: 32px; cursor: pointer; border: none; }
+  .tweak-row select {
+    width: 100%; padding: 0.4rem 0.6rem; border: 1px solid #ddd;
+    font-family: var(--sans); font-size: 0.8rem; color: var(--navy);
+    border-radius: 1px; background: white;
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#apresentacao">Sobre</a>
+  <a href="#quando-onde">Quando & Onde</a>
+  <a href="#rsvp">Confirmação</a>
+  <a href="#presentes">Presentes</a>
+</nav>
+
+<!-- SVG watercolor filter (hidden) -->
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <filter id="watercolor" x="-10%" y="-10%" width="120%" height="120%" color-interpolation-filters="sRGB">
+      <feTurbulence type="fractalNoise" baseFrequency="0.035 0.028" numOctaves="5" seed="3" result="noise"/>
+      <feDisplacementMap in="SourceGraphic" in2="noise" scale="18" xChannelSelector="R" yChannelSelector="G" result="displaced"/>
+      <feGaussianBlur in="displaced" stdDeviation="1.2" result="blurred"/>
+      <feTurbulence type="turbulence" baseFrequency="0.06" numOctaves="3" seed="7" result="tex"/>
+      <feColorMatrix in="tex" type="saturate" values="0" result="texGray"/>
+      <feBlend in="blurred" in2="texGray" mode="soft-light" result="painted"/>
+      <feComponentTransfer in="painted">
+        <feFuncR type="gamma" amplitude="1.05" exponent="0.92" offset="0.02"/>
+        <feFuncG type="gamma" amplitude="1.02" exponent="0.95" offset="0.01"/>
+        <feFuncB type="gamma" amplitude="1.08" exponent="0.88" offset="0.03"/>
+      </feComponentTransfer>
+    </filter>
+  </defs>
+</svg>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg">
+    <img src="assets/venue.png" alt="Espaço Eccos">
+  </div>
+  <div class="hero-ornament r1"></div>
+  <div class="hero-ornament r2"></div>
+  <div class="hero-ornament r3"></div>
+  <p class="hero-date-label">Você está convidado</p>
+  <h1 class="hero-names">
+    <span>Bruno</span>
+    <span class="hero-ampersand">&</span>
+    <span>Gabriel</span>
+  </h1>
+  <div class="hero-divider"></div>
+  <p class="hero-date">06 · 06 · 2026 &nbsp;·&nbsp; 15h00 &nbsp;·&nbsp; Espaço Eccos</p>
+  <div class="countdown-row" id="countdown">
+    <div class="countdown-unit"><div class="countdown-num" id="c-d">--</div><div class="countdown-label">Dias</div></div>
+    <div class="countdown-unit"><div class="countdown-num" id="c-h">--</div><div class="countdown-label">Horas</div></div>
+    <div class="countdown-unit"><div class="countdown-num" id="c-m">--</div><div class="countdown-label">Min</div></div>
+    <div class="countdown-unit"><div class="countdown-num" id="c-s">--</div><div class="countdown-label">Seg</div></div>
+  </div>
+  <div class="scroll-hint">
+    <svg width="14" height="20" viewBox="0 0 14 20" fill="none"><rect x="1" y="1" width="12" height="18" rx="6" stroke="currentColor" stroke-width="1.2"/><circle cx="7" cy="6" r="1.5" fill="currentColor"><animate attributeName="cy" values="6;12;6" dur="1.8s" repeatCount="indefinite"/></circle></svg>
+    <span>Rolar</span>
+  </div>
+</section>
+
+<!-- APRESENTAÇÃO -->
+<section id="apresentacao">
+  <div class="container">
+    <span class="section-tag">Uma história de amor</span>
+    <h2 class="section-title">Bem-vindos à <em>nossa celebração</em></h2>
+    <div class="section-rule"></div>
+    <p class="apresentacao-text" id="pres-text">
+      Olá, bem-vindos. Com alegria e o coração cheio de amor, convidamos cada um de vocês para celebrar conosco esse momento tão especial. A presença de vocês tornará esse dia ainda mais inesquecível.
+    </p>
+    <p class="apresentacao-signature">Bruno & Gabriel</p>
+  </div>
+</section>
+
+<!-- QUANDO & ONDE -->
+<section id="quando-onde">
+  <div class="container">
+    <span class="section-tag">Detalhes do evento</span>
+    <h2 class="section-title">Quando <em>& Onde</em></h2>
+    <div class="section-rule"></div>
+    <div class="info-grid">
+      <div class="info-card">
+        <div class="info-icon">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        </div>
+        <p class="info-card-label">Data & Hora</p>
+        <p class="info-card-main">06 de Junho<br>de 2026</p>
+        <p class="info-card-sub">Sábado · às 15h00<br>Cerimônia & Recepção</p>
+      </div>
+      <div class="info-card">
+        <div class="info-icon">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+        </div>
+        <p class="info-card-label">Local</p>
+        <p class="info-card-main">Espaço<br>Eccos</p>
+        <p class="info-card-sub">Clique no mapa para ver<br>o endereço completo</p>
+      </div>
+    </div>
+    <div class="map-wrapper">
+      <iframe
+        src="https://maps.google.com/maps?q=Espa%C3%A7o+Eccos&output=embed"
+        allowfullscreen loading="lazy">
+      </iframe>
+    </div>
+  </div>
+</section>
+
+<!-- PRESENTES -->
+<section id="rsvp">
+  <div class="container">
+    <span class="section-tag">Confirme sua presença</span>
+    <h2 class="section-title">Esperamos <em style="color:var(--gold)">por você</em></h2>
+    <div class="section-rule"></div>
+    <div class="gforms-wrap">
+      <iframe
+        src="https://docs.google.com/forms/d/e/1FAIpQLSeITFwlQVem0ML3sccLNQg3IUqGW6IAvRh2Zx5nBzzdpKxjAg/viewform?embedded=true"
+        width="100%" height="1088" frameborder="0" marginheight="0" marginwidth="0"
+        style="max-width:640px;display:block;margin:0 auto;border-radius:2px;">
+        Carregando…
+      </iframe>
+    </div>
+  </div>
+</section>
+<section id="presentes">
+  <div class="container">
+    <span class="section-tag">Lista de presentes</span>
+    <h2 class="section-title">Presenteie com <em>amor</em></h2>
+    <div class="section-rule"></div>
+    <p style="text-align:center;font-family:var(--sans);font-size:0.85rem;color:#666;margin-top:-1.5rem;margin-bottom:2rem;max-width:500px;margin-left:auto;margin-right:auto;">
+      Se quiser nos presentear, escolha um item abaixo. Cada presente será um pedacinho especial da nossa nova vida juntos. ✦
+    </p>
+    <div class="filter-row">
+      <button class="filter-btn active" onclick="filterGifts('todos', this)">Todos</button>
+      <button class="filter-btn" onclick="filterGifts('cozinha', this)">Cozinha</button>
+      <button class="filter-btn" onclick="filterGifts('quarto', this)">Quarto</button>
+      <button class="filter-btn" onclick="filterGifts('sala', this)">Sala</button>
+      <button class="filter-btn" onclick="filterGifts('lazer', this)">Lazer</button>
+      <button class="filter-btn" onclick="filterGifts('outros', this)">Outros</button>
+    </div>
+    <div class="gifts-grid" id="gifts-grid"></div>
+  </div>
+</section>
+
+<!-- RSVP -->
+
+<!-- FOOTER -->
+<footer>
+  <p class="footer-names">Bruno & Gabriel</p>
+  <p class="footer-date">06 · 06 · 2026</p>
+</footer>
+
+<!-- GIFT MODAL -->
+<div class="modal-overlay" id="gift-modal">
+  <div class="modal" id="modal-content">
+    <div id="modal-form-view">
+      <h3 class="modal-title">Presentear com amor</h3>
+      <p class="modal-subtitle">Deixe seu nome para que possamos agradecer pessoalmente por este presente especial.</p>
+      <img id="modal-img" class="modal-img" alt="" style="display:none">
+      <p class="modal-gift-name" id="modal-gift-name"></p>
+      <p class="modal-gift-price" id="modal-gift-price"></p>
+      <div class="modal-divider"></div>
+      <label>Seu nome</label>
+      <input type="text" id="buyer-name" placeholder="Ex: Ana e Pedro">
+      <label>Mensagem (opcional)</label>
+      <input type="text" id="buyer-msg" placeholder="Uma mensagem carinhosa...">
+      <div class="modal-actions">
+        <button class="modal-confirm" onclick="confirmBuy()">Confirmar presente</button>
+        <button class="modal-cancel" onclick="closeModal()">Cancelar</button>
+      </div>
+    </div>
+    <div id="modal-success-view" style="display:none">
+      <div class="modal-success">
+        <div class="modal-success-icon">💝</div>
+        <h3 class="modal-success-title">Que lindo!</h3>
+        <p class="modal-success-sub">Seu presente foi registrado.<br>Clique abaixo para ver os detalhes e realizar o pagamento.</p>
+        <a id="modal-pay-link" href="#" class="modal-pay-btn" target="_blank" rel="noopener">
+          Ver detalhes e pagar →
+        </a>
+        <button class="modal-cancel" style="width:100%;margin-top:0.8rem" onclick="closeModal()">Fechar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TWEAKS PANEL -->
+<div id="tweaks-panel">
+  <h3>Tweaks</h3>
+  <div class="tweak-row">
+    <label>Cor principal</label>
+    <input type="color" id="tw-navy" value="#0f1f3d" oninput="applyTweak('navy', this.value)">
+  </div>
+  <div class="tweak-row">
+    <label>Cor D</label>
+    <input type="color" id="tw-gold" value="#c9a96e" oninput="applyTweak('gold', this.value)">
+  </div>
+  <div class="tweak-row">
+    <label>Tipografia</label>
+    <select onchange="applyFont(this.value)">
+      <option value="'Cormorant Garamond', Georgia, serif">Cormorant (atual)</option>
+      <option value="'Playfair Display', Georgia, serif">Playfair Display</option>
+      <option value="Georgia, serif">Georgia</option>
+    </select>
+  </div>
+</div>
+
+<script>
+// ── COUNTDOWN ──
+function updateCountdown() {
+  const target = new Date('2026-06-06T15:00:00');
+  const now = new Date();
+  const diff = target - now;
+  if (diff <= 0) {
+    document.getElementById('countdown').innerHTML = '<p style="color:var(--gold);font-family:var(--serif);font-size:1.5rem;font-style:italic;">Hoje é o grande dia! 🎉</p>';
+    return;
+  }
+  const d = Math.floor(diff / 86400000);
+  const h = Math.floor((diff % 86400000) / 3600000);
+  const m = Math.floor((diff % 3600000) / 60000);
+  const s = Math.floor((diff % 60000) / 1000);
+  document.getElementById('c-d').textContent = String(d).padStart(2,'0');
+  document.getElementById('c-h').textContent = String(h).padStart(2,'0');
+  document.getElementById('c-m').textContent = String(m).padStart(2,'0');
+  document.getElementById('c-s').textContent = String(s).padStart(2,'0');
+}
+updateCountdown();
+setInterval(updateCountdown, 1000);
+
+// ── GIFT DATA ──
+// photo: path to image file (leave '' to show placeholder)
+// paymentLink: link da página do Notion com detalhes e pagamento
+const gifts = [
+  { id:1,  name: 'Só uma lembrancinha',                              category: 'outros', price: '',        photo: '', paymentLink: 'https://listadepresentes.notion.site/S-uma-lembrancinha-324972dc5f3380329ffdc1e4d6276cfd?pvs=25' },
+  { id:2,  name: 'Vale 1 Lanche no iFood',                           category: 'lazer',  price: '',        photo: '', paymentLink: 'https://listadepresentes.notion.site/Vale-1-lanche-no-Ifood-325972dc5f338071a539cb6a896eb733?pvs=25' },
+  { id:3,  name: 'Gravata',                                          category: 'outros', price: '',        photo: '', paymentLink: 'https://listadepresentes.notion.site/Gravata-324972dc5f33806ebd8dcf6177155446?pvs=25' },
+  { id:4,  name: 'Toalha de Mesa',                                   category: 'cozinha',price: '',        photo: '', paymentLink: 'https://listadepresentes.notion.site/Tolha-de-mesa-325972dc5f3380e48bd8f1c4f9b49c3a?pvs=25' },
+  { id:5,  name: 'Vale Mounjaro (Cota)',                             category: 'outros', price: '',        photo: '', paymentLink: 'https://listadepresentes.notion.site/Vale-Mounjaro-Cota-325972dc5f33806a9317d73db95604d3?pvs=25' },
+  { id:6,  name: 'Vale 2 Meses de Netflix',                          category: 'lazer',  price: '',        photo: '', paymentLink: 'https://listadepresentes.notion.site/Vale-2-meses-de-Netflix-325972dc5f3380999268ee81a51029e3?pvs=25' },
+  { id:7,  name: 'Jogo de Porta-Retratos',                           category: 'sala',   price: '',        photo: '', paymentLink: 'https://listadepresentes.notion.site/Jogo-de-porta-retratos-325972dc5f33809289aff0aeb2be1888?pvs=25' },
+  { id:8,  name: 'Vale 1 Almoço para a Lua de Mel',                  category: 'lazer',  price: '',        photo: '', paymentLink: 'https://listadepresentes.notion.site/Vale-1-Almo-o-para-a-lua-de-mel-325972dc5f338074a24ccc06493a4ae9?pvs=25' },
+  { id:9,  name: 'Conjunto de Potes Herméticos',                     category: 'cozinha',price: '',        photo: '', paymentLink: 'https://listadepresentes.notion.site/Conjunto-de-Potes-herm-ticos-325972dc5f33808481c9d8a2f8274b82?pvs=25' },
+  { id:10, name: '1 Diária de Limpeza para a Casa',                  category: 'outros', price: '',        photo: '', paymentLink: 'https://listadepresentes.notion.site/1-di-ria-de-limpeza-para-a-casa-325972dc5f3380bfadd7c2deb15c0ea8?pvs=25' },
+  { id:11, name: 'Jogo de Talheres Tramontina Laguna 32 Peças',       category: 'cozinha',price: '',        photo: '', paymentLink: 'https://listadepresentes.notion.site/Jogo-de-talheres-Tramontina-Laguna-32p-s-324972dc5f3380148ac4f74b1c93ae34?pvs=25' },
+  { id:12, name: 'Passeio de Barco na Lua de Mel',                   category: 'lazer',  price: '',        photo: '', paymentLink: 'https://listadepresentes.notion.site/Passeio-de-Barco-na-lua-de-mel-324972dc5f3380579b5fd3c495b68ae1?pvs=25' },
+  { id:13, name: 'Purificador de Água',                              category: 'cozinha',price: '',        photo: '', paymentLink: 'https://listadepresentes.notion.site/Purificador-de-gua-325972dc5f33806c84cfd4ad2dc71848?pvs=25' },
+  { id:14, name: 'Jogo de Toalhas',                                  category: 'quarto', price: '',        photo: '', paymentLink: 'https://listadepresentes.notion.site/Jogo-de-toalhas-325972dc5f3380a48380f442d85b588d?pvs=25' },
+  { id:15, name: '2 Travesseiros para os Noivos',                    category: 'quarto', price: '',        photo: '', paymentLink: 'https://listadepresentes.notion.site/2-Travesseiros-para-os-noivos-dormirem-bem-depois-da-festa-325972dc5f3380648a28cb03a7997f34?pvs=25' },
+  { id:16, name: 'Passeio de Buggy na Lua de Mel',                   category: 'lazer',  price: '',        photo: '', paymentLink: 'https://listadepresentes.notion.site/Passeio-de-Buggy-na-lua-de-mel-325972dc5f3380c38ef2ec7c755551d1?pvs=25' },
+  { id:17, name: 'Chuveiro Lorenzetti Digital Ducha',                 category: 'outros', price: '',        photo: '', paymentLink: 'https://listadepresentes.notion.site/Chuveiro-Lorenzete-Digital-Ducha-325972dc5f3380389f75cf7472173237?pvs=25' },
+  { id:18, name: 'Jantar Romântico para os Noivos',                  category: 'lazer',  price: '',        photo: '', paymentLink: 'https://listadepresentes.notion.site/Jantar-rom-ntico-para-os-noivos-324972dc5f33809281fde6feffc2a08c?pvs=25' },
+  { id:19, name: 'Jogo de Panelas',                                  category: 'cozinha',price: '',        photo: '', paymentLink: 'https://listadepresentes.notion.site/Jogo-de-Panelas-325972dc5f3380d9bd30ee8630001007?pvs=25' },
+  { id:20, name: 'Jogo de Cama',                                     category: 'quarto', price: '',        photo: '', paymentLink: 'https://listadepresentes.notion.site/Jogo-de-Cama-325972dc5f3380a397ffea9cd6bf78f6?pvs=25' },
+  { id:21, name: 'Álbum de Casamento',                               category: 'outros', price: '',        photo: '', paymentLink: 'https://listadepresentes.notion.site/Alb-m-de-casamento-325972dc5f338054a4f1eb76710b1155?pvs=25' },
+  { id:22, name: 'Par de Tênis para a Lua de Mel',                   category: 'lazer',  price: '',        photo: '', paymentLink: 'https://listadepresentes.notion.site/Par-de-T-nis-para-os-noivos-andarem-na-lua-de-mel-324972dc5f3380dd858fe3bb4249f7dc?pvs=25' },
+  { id:23, name: 'Kit Roupas Novas',                                 category: 'outros', price: '',        photo: '', paymentLink: 'https://listadepresentes.notion.site/Kit-roupas-novas-325972dc5f338079928ad497da3b8a68?pvs=25' },
+  { id:24, name: 'Airfryer',                                         category: 'cozinha',price: '',        photo: '', paymentLink: 'https://listadepresentes.notion.site/Airfryer-325972dc5f3380f4b83ace1e5c4c575e?pvs=25' },
+  { id:25, name: '1 Diária de Hotel para a Lua de Mel',              category: 'lazer',  price: '',        photo: '', paymentLink: 'https://listadepresentes.notion.site/1-Di-ria-de-Hotel-para-a-lua-de-mel-324972dc5f3380d9aa9bdda11f8fcffc?pvs=25' },
+  { id:26, name: 'Rack para Sala',                                   category: 'sala',   price: '',        photo: '', paymentLink: 'https://listadepresentes.notion.site/Rack-para-sala-325972dc5f338020ae7ef429a8de9b6d?pvs=25' },
+  { id:27, name: 'Cadeira de Escritório',                            category: 'outros', price: '',        photo: '', paymentLink: 'https://listadepresentes.notion.site/Cadeira-de-escrit-rio-325972dc5f338049a58efcb8874eab8c?pvs=25' },
+  { id:28, name: 'Mesa de Madeira Extensível',                       category: 'sala',   price: '',        photo: '', paymentLink: 'https://listadepresentes.notion.site/Mesa-de-madeira-Extens-vel-324972dc5f3380a19898cff1dfabd88d?pvs=25' },
+  { id:29, name: 'Conjunto 4 Cadeiras',                              category: 'sala',   price: '',        photo: '', paymentLink: 'https://listadepresentes.notion.site/Conjunto-4-cadeiras-325972dc5f33805588dcef683ce165d0?pvs=25' },
+  { id:30, name: 'Lava-Louças 8L Brastemp',                          category: 'cozinha',price: '',        photo: '', paymentLink: 'https://listadepresentes.notion.site/Lava-Lou-as-8L-Brastemp-324972dc5f33802b8aafc3dbbae12d1c?pvs=25' },
+  { id:31, name: 'Smart TV 55" Samsung 4K',                          category: 'sala',   price: '',        photo: '', paymentLink: 'https://listadepresentes.notion.site/Smart-Tv-55-Samsung-4K-324972dc5f338047ba83f4205e82bcf2?pvs=25' },
+];
+
+const catLabels = { cozinha: 'Cozinha', quarto: 'Quarto', sala: 'Sala', lazer: 'Lazer', outros: 'Outros' };
+const SHEETS_URL = 'https://script.google.com/macros/s/AKfycby7LJzE3ihvzOdK_MexlUKs7cdxxFOCUTom05mK4DFCNWW0Skhqt49DH58aWqcLX5Kx/exec';
+let bought = JSON.parse(localStorage.getItem('wb_bought') || '[]'); // cache local
+let currentFilter = 'todos';
+let selectedGiftId = null;
+
+// Carrega presentes já comprados do Google Sheets
+async function loadBoughtFromSheets() {
+  try {
+    const res = await fetch(SHEETS_URL + '?action=get');
+    const data = await res.json();
+    if (data.bought) {
+      bought = data.bought.map(b => b.id).filter(Boolean);
+      localStorage.setItem('wb_bought', JSON.stringify(bought));
+      renderGifts();
+    }
+  } catch(e) { console.warn('Sheets offline, usando cache local'); }
+}
+
+async function saveBoughtToSheets(id, buyerName, buyerMsg, giftName) {
+  try {
+    const params = new URLSearchParams({
+      action: 'buy',
+      id, name: buyerName, giftName, message: buyerMsg
+    });
+    await fetch(SHEETS_URL + '?' + params.toString());
+  } catch(e) { console.warn('Erro ao salvar no Sheets'); }
+}
+
+function renderGifts() {
+  const grid = document.getElementById('gifts-grid');
+  const filtered = currentFilter === 'todos' ? gifts : gifts.filter(g => g.category === currentFilter);
+  grid.innerHTML = filtered.map(g => {
+    const isBought = bought.includes(g.id);
+    const photoHTML = g.photo
+      ? `<img src="${g.photo}" alt="${g.name}">`
+      : `<div class="gift-photo-placeholder">
+           <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+           <span>foto do presente</span>
+         </div>`;
+    return `<div class="gift-card${isBought ? ' bought' : ''}">
+      <div class="gift-photo">
+        ${photoHTML}
+        ${isBought ? '<span class="bought-badge">✓ Presenteado</span>' : ''}
+      </div>
+      <div class="gift-body">
+        <p class="gift-category">${catLabels[g.category]}</p>
+        <p class="gift-name">${g.name}</p>
+        <p class="gift-price">${g.price}</p>
+        <button class="gift-btn${isBought ? ' bought-btn' : ''}" onclick="openModal(${g.id})">
+          ${isBought ? '✓ Presenteado' : 'Presentear'}
+        </button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function filterGifts(cat, btn) {
+  currentFilter = cat;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderGifts();
+}
+
+function openModal(id) {
+  selectedGiftId = id;
+  const gift = gifts.find(g => g.id === id);
+  document.getElementById('modal-gift-name').textContent = gift.name;
+  document.getElementById('modal-gift-price').textContent = gift.price;
+  // show photo in modal if available
+  const modalImg = document.getElementById('modal-img');
+  if (gift.photo) { modalImg.src = gift.photo; modalImg.style.display = 'block'; }
+  else { modalImg.style.display = 'none'; }
+  // store payment link
+  document.getElementById('modal-pay-link').href = gift.paymentLink || '#';
+  document.getElementById('buyer-name').value = '';
+  document.getElementById('buyer-msg').value = '';
+  document.getElementById('modal-form-view').style.display = '';
+  document.getElementById('modal-success-view').style.display = 'none';
+  document.getElementById('gift-modal').classList.add('open');
+}
+
+function closeModal() {
+  document.getElementById('gift-modal').classList.remove('open');
+  selectedGiftId = null;
+}
+
+function confirmBuy() {
+  const name = document.getElementById('buyer-name').value.trim();
+  if (!name) { document.getElementById('buyer-name').focus(); return; }
+  const gift = gifts.find(g => g.id === selectedGiftId);
+  const msg = document.getElementById('buyer-msg').value.trim();
+  bought.push(selectedGiftId);
+  localStorage.setItem('wb_bought', JSON.stringify(bought));
+  saveBoughtToSheets(selectedGiftId, name, msg, gift ? gift.name : '');
+  document.getElementById('modal-form-view').style.display = 'none';
+  document.getElementById('modal-success-view').style.display = '';
+  renderGifts();
+}
+
+document.getElementById('gift-modal').addEventListener('click', function(e) {
+  if (e.target === this) closeModal();
+});
+
+renderGifts();
+loadBoughtFromSheets();
+
+// ── RSVP ──
+function submitRSVP(e) {
+  e.preventDefault();
+  document.getElementById('rsvp-form-wrap').style.display = 'none';
+  document.getElementById('rsvp-success').style.display = 'block';
+}
+
+// ── TWEAKS ──
+function applyTweak(key, val) {
+  const map = { navy: '--navy', gold: '--gold' };
+  if (map[key]) document.documentElement.style.setProperty(map[key], val);
+  window.parent.postMessage({ type: '__edit_mode_set_keys', edits: { [key]: val } }, '*');
+}
+function applyFont(val) {
+  document.documentElement.style.setProperty('--serif', val);
+  window.parent.postMessage({ type: '__edit_mode_set_keys', edits: { serifFont: val } }, '*');
+}
+
+window.addEventListener('message', e => {
+  if (e.data?.type === '__activate_edit_mode') document.getElementById('tweaks-panel').style.display = 'block';
+  if (e.data?.type === '__deactivate_edit_mode') document.getElementById('tweaks-panel').style.display = 'none';
+});
+window.parent.postMessage({ type: '__edit_mode_available' }, '*');
+</script>
+</body>
+</html>
