@@ -854,8 +854,14 @@ function openModal(id) {
   const modalImg = document.getElementById('modal-img');
   if (gift.photo) { modalImg.src = gift.photo; modalImg.style.display = 'block'; }
   else { modalImg.style.display = 'none'; }
-  document.getElementById('modal-pay-pix').href = gift.pixLink || '#';
-  document.getElementById('modal-pay-card').href = gift.cardLink || '#';
+  const pixBtn = document.getElementById('modal-pay-pix');
+  const cardBtn = document.getElementById('modal-pay-card');
+  if (gift.pixLink && gift.pixLink !== '#') {
+    pixBtn.href = gift.pixLink; pixBtn.style.display = '';
+  } else { pixBtn.style.display = 'none'; }
+  if (gift.cardLink && gift.cardLink !== '#') {
+    cardBtn.href = gift.cardLink; cardBtn.style.display = '';
+  } else { cardBtn.style.display = 'none'; }
   document.getElementById('buyer-name').value = '';
   document.getElementById('buyer-msg').value = '';
   document.getElementById('modal-form-view').style.display = '';
