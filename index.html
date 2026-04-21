@@ -449,7 +449,9 @@
     }
 
     /* Hero */
-    #hero { padding: 5rem 1.5rem 3rem; justify-content: flex-end; }
+    #hero { padding: 5rem 1.5rem 2.5rem; justify-content: space-between; }
+    .hero-top, .hero-middle, .hero-bottom { position: relative; z-index: 2; width: 100%; text-align: center; }
+    .hero-middle { display: flex; flex-direction: column; align-items: center; }
     .hero-date {
       font-size: 0.68rem; letter-spacing: 0.1em;
       line-height: 1.6;
@@ -546,19 +548,25 @@
   <div class="hero-ornament r1"></div>
   <div class="hero-ornament r2"></div>
   <div class="hero-ornament r3"></div>
-  <p class="hero-date-label">Você está convidado</p>
-  <h1 class="hero-names">
-    <span>Bruno</span>
-    <span class="hero-ampersand">&</span>
-    <span>Gabriel</span>
-  </h1>
-  <div class="hero-divider"></div>
-  <p class="hero-date">06 · 06 · 2026 &nbsp;·&nbsp; 15h00 &nbsp;·&nbsp; Espaço Eccos</p>
-  <div class="countdown-row" id="countdown">
-    <div class="countdown-unit"><div class="countdown-num" id="c-d">--</div><div class="countdown-label">Dias</div></div>
-    <div class="countdown-unit"><div class="countdown-num" id="c-h">--</div><div class="countdown-label">Horas</div></div>
-    <div class="countdown-unit"><div class="countdown-num" id="c-m">--</div><div class="countdown-label">Min</div></div>
-    <div class="countdown-unit"><div class="countdown-num" id="c-s">--</div><div class="countdown-label">Seg</div></div>
+  <div class="hero-top">
+    <p class="hero-date-label">Você está convidado</p>
+  </div>
+  <div class="hero-middle">
+    <h1 class="hero-names">
+      <span>Bruno</span>
+      <span class="hero-ampersand">&</span>
+      <span>Gabriel</span>
+    </h1>
+    <div class="hero-divider"></div>
+  </div>
+  <div class="hero-bottom">
+    <p class="hero-date">06 · 06 · 2026 &nbsp;·&nbsp; 15h00 &nbsp;·&nbsp; Espaço Eccos</p>
+    <div class="countdown-row" id="countdown">
+      <div class="countdown-unit"><div class="countdown-num" id="c-d">--</div><div class="countdown-label">Dias</div></div>
+      <div class="countdown-unit"><div class="countdown-num" id="c-h">--</div><div class="countdown-label">Horas</div></div>
+      <div class="countdown-unit"><div class="countdown-num" id="c-m">--</div><div class="countdown-label">Min</div></div>
+      <div class="countdown-unit"><div class="countdown-num" id="c-s">--</div><div class="countdown-label">Seg</div></div>
+    </div>
   </div>
   <div class="scroll-hint">
     <svg width="14" height="20" viewBox="0 0 14 20" fill="none"><rect x="1" y="1" width="12" height="18" rx="6" stroke="currentColor" stroke-width="1.2"/><circle cx="7" cy="6" r="1.5" fill="currentColor"><animate attributeName="cy" values="6;12;6" dur="1.8s" repeatCount="indefinite"/></circle></svg>
