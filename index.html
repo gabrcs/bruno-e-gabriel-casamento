@@ -463,7 +463,7 @@
     /* Nav: 4 itens distribuídos igualmente */
     nav {
       gap: 0; padding: 0;
-      display: grid; grid-template-columns: repeat(4, 1fr);
+      display: grid; grid-template-columns: repeat(5, 1fr);
     }
     nav a {
       padding: 0.9rem 0.3rem;
@@ -513,28 +513,55 @@
     nav a { padding: 1rem 0.9rem; font-size: 0.58rem; }
   }
 
-  /* ── TWEAKS PANEL ── */
-  #tweaks-panel {
-    display: none; position: fixed; bottom: 1.5rem; right: 1.5rem;
-    z-index: 999; background: var(--white); border: 1px solid rgba(201,169,110,0.4);
-    border-radius: 4px; padding: 1.4rem; width: 240px;
-    box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+  /* ── FADE-IN ON SCROLL ── */
+  .fade-in {
+    opacity: 0; transform: translateY(28px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
   }
-  #tweaks-panel h3 {
-    font-family: var(--sans); font-size: 0.7rem; letter-spacing: 0.2em;
-    text-transform: uppercase; color: var(--navy); margin-bottom: 1rem;
+  .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+  /* ── CRONOGRAMA ── */
+  #cronograma { background: var(--navy); }
+  #cronograma .section-tag { color: rgba(255,255,255,0.6); }
+  #cronograma .section-title { color: var(--off-white); }
+  #cronograma .section-rule { background: rgba(255,255,255,0.2); opacity: 1; }
+  .timeline {
+    position: relative; max-width: 520px; margin: 0 auto;
+    padding: 0 1rem;
   }
-  .tweak-row { margin-bottom: 1rem; }
-  .tweak-row label {
-    display: block; font-family: var(--sans); font-size: 0.65rem;
-    letter-spacing: 0.12em; text-transform: uppercase; color: #777;
-    margin-bottom: 0.4rem;
+  .timeline::before {
+    content: ''; position: absolute; left: 50%; top: 0; bottom: 0;
+    width: 1px; background: rgba(255,255,255,0.15);
+    transform: translateX(-50%);
   }
-  .tweak-row input[type=color] { width: 100%; height: 32px; cursor: pointer; border: none; }
-  .tweak-row select {
-    width: 100%; padding: 0.4rem 0.6rem; border: 1px solid #ddd;
-    font-family: var(--sans); font-size: 0.8rem; color: var(--navy);
-    border-radius: 1px; background: white;
+  .timeline-item {
+    display: flex; align-items: center; gap: 1.5rem;
+    margin-bottom: 2rem; position: relative;
+  }
+  .timeline-item:last-child { margin-bottom: 0; }
+  .timeline-time {
+    flex: 1; text-align: right;
+    font-family: var(--serif); font-size: 1.4rem; font-weight: 300;
+    color: rgba(255,255,255,0.5); font-style: italic;
+    white-space: nowrap;
+  }
+  .timeline-dot {
+    width: 10px; height: 10px; border-radius: 50%;
+    background: rgba(255,255,255,0.3); border: 1px solid rgba(255,255,255,0.5);
+    flex-shrink: 0; position: relative; z-index: 1;
+  }
+  .timeline-label {
+    flex: 1;
+    font-family: var(--sans); font-size: 0.78rem; letter-spacing: 0.12em;
+    text-transform: uppercase; color: rgba(255,255,255,0.85);
+    font-weight: 400;
+  }
+  @media (max-width: 480px) {
+    .timeline::before { left: 0; transform: none; }
+    .timeline-item { flex-direction: row; gap: 1rem; }
+    .timeline-time { flex: none; width: 3.5rem; font-size: 1.1rem; text-align: right; }
+    .timeline-dot { flex-shrink: 0; }
+    .timeline-label { font-size: 0.72rem; }
   }
 </style>
 </head>
@@ -544,6 +571,7 @@
 <nav>
   <a href="#apresentacao">Sobre</a>
   <a href="#quando-onde">Quando & Onde</a>
+  <a href="#cronograma">Cronograma</a>
   <a href="#presentes">Presentes</a>
   <a href="#rsvp">Confirmação</a>
 </nav>
@@ -604,10 +632,10 @@
 <!-- APRESENTAÇÃO -->
 <section id="apresentacao">
   <div class="container">
-    <span class="section-tag">Uma história de amor</span>
-    <h2 class="section-title">Bem-vindos à <em>nossa celebração</em></h2>
-    <div class="section-rule"></div>
-    <p class="apresentacao-text" id="pres-text">
+    <span class="section-tag fade-in">Uma história de amor</span>
+    <h2 class="section-title fade-in">Bem-vindos à <em>nossa celebração</em></h2>
+    <div class="section-rule fade-in"></div>
+    <p class="apresentacao-text fade-in" id="pres-text">
       Olá, bem-vindos. Com alegria e o coração cheio de amor, convidamos cada um de vocês para celebrar conosco esse momento tão especial. A presença de vocês tornará esse dia ainda mais inesquecível.
     </p>
     <p class="apresentacao-signature">Bruno & Gabriel</p>
@@ -617,10 +645,10 @@
 <!-- QUANDO & ONDE -->
 <section id="quando-onde">
   <div class="container">
-    <span class="section-tag">Detalhes do evento</span>
-    <h2 class="section-title">Quando <em>& Onde</em></h2>
-    <div class="section-rule"></div>
-    <div class="info-grid">
+    <span class="section-tag fade-in">Detalhes do evento</span>
+    <h2 class="section-title fade-in">Quando <em>& Onde</em></h2>
+    <div class="section-rule fade-in"></div>
+    <div class="info-grid fade-in">
       <div class="info-card">
         <div class="info-icon">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
@@ -640,9 +668,60 @@
     </div>
     <div class="map-wrapper">
       <iframe
-        src="https://maps.google.com/maps?q=Espa%C3%A7o+Eccos&output=embed"
+        src="https://maps.google.com/maps?q=-25.480403407040882,-49.478845053969486&output=embed"
         allowfullscreen loading="lazy">
       </iframe>
+    </div>
+  </div>
+</section>
+
+<!-- CRONOGRAMA -->
+<section id="cronograma">
+  <div class="container">
+    <span class="section-tag fade-in">Programação do dia</span>
+    <h2 class="section-title fade-in" style="color:var(--off-white)">Como será <em style="color:rgba(255,255,255,0.5)">o nosso dia</em></h2>
+    <div class="section-rule fade-in"></div>
+    <div class="timeline">
+      <div class="timeline-item fade-in">
+        <span class="timeline-time">14h00</span>
+        <div class="timeline-dot"></div>
+        <span class="timeline-label">Recepção</span>
+      </div>
+      <div class="timeline-item fade-in">
+        <span class="timeline-time">15h30</span>
+        <div class="timeline-dot"></div>
+        <span class="timeline-label">Cerimônia</span>
+      </div>
+      <div class="timeline-item fade-in">
+        <span class="timeline-time">16h30</span>
+        <div class="timeline-dot"></div>
+        <span class="timeline-label">Sessão de Fotos</span>
+      </div>
+      <div class="timeline-item fade-in">
+        <span class="timeline-time">17h30</span>
+        <div class="timeline-dot"></div>
+        <span class="timeline-label">Recepção</span>
+      </div>
+      <div class="timeline-item fade-in">
+        <span class="timeline-time">18h30</span>
+        <div class="timeline-dot"></div>
+        <span class="timeline-label">Jantar</span>
+      </div>
+      <div class="timeline-item fade-in">
+        <span class="timeline-time">19h30</span>
+        <div class="timeline-dot"></div>
+        <span class="timeline-label">Bolo e Docinhos</span>
+      </div>
+      <div class="timeline-item fade-in">
+        <span class="timeline-time">20h15</span>
+        <div class="timeline-dot"></div>
+        <span class="timeline-label">Festa</span>
+      </div>
+      <div class="timeline-item fade-in">
+        <span class="timeline-time">23h00</span>
+        <div class="timeline-dot"></div>
+        <span class="timeline-label">Hora de Descansar</span>
+      </div>
     </div>
   </div>
 </section>
@@ -650,9 +729,9 @@
 <!-- PRESENTES -->
 <section id="presentes">
   <div class="container">
-    <span class="section-tag">Lista de presentes</span>
-    <h2 class="section-title">Presenteie com <em>amor</em></h2>
-    <div class="section-rule"></div>
+    <span class="section-tag fade-in">Lista de presentes</span>
+    <h2 class="section-title fade-in">Presenteie com <em>amor</em></h2>
+    <div class="section-rule fade-in"></div>
     <p style="text-align:center;font-family:var(--sans);font-size:0.85rem;color:#666;margin-top:-1.5rem;margin-bottom:2rem;max-width:500px;margin-left:auto;margin-right:auto;">
       Se quiser nos presentear, escolha um item abaixo. Cada presente será um pedacinho especial da nossa nova vida juntos. ✦
     </p>
@@ -676,9 +755,9 @@
 <!-- RSVP -->
 <section id="rsvp">
   <div class="container">
-    <span class="section-tag">Confirme sua presença</span>
-    <h2 class="section-title">Esperamos <em style="color:var(--gold)">por você</em></h2>
-    <div class="section-rule"></div>
+    <span class="section-tag fade-in">Confirme sua presença</span>
+    <h2 class="section-title fade-in">Esperamos <em style="color:var(--gold)">por você</em></h2>
+    <div class="section-rule fade-in"></div>
     <div class="gforms-wrap">
       <iframe
         src="https://docs.google.com/forms/d/e/1FAIpQLSdoZHlTeswueWyfdEfLwgNXUYK_VJ28iOl5gAUiHxrpNi3CmA/viewform?embedded=true"
@@ -733,27 +812,6 @@
         <button class="modal-cancel" style="width:100%;margin-top:0.8rem" onclick="closeModal()">Fechar</button>
       </div>
     </div>
-  </div>
-</div>
-
-<!-- TWEAKS PANEL -->
-<div id="tweaks-panel">
-  <h3>Tweaks</h3>
-  <div class="tweak-row">
-    <label>Cor principal</label>
-    <input type="color" id="tw-navy" value="#0f1f3d" oninput="applyTweak('navy', this.value)">
-  </div>
-  <div class="tweak-row">
-    <label>Cor D</label>
-    <input type="color" id="tw-gold" value="#c9a96e" oninput="applyTweak('gold', this.value)">
-  </div>
-  <div class="tweak-row">
-    <label>Tipografia</label>
-    <select onchange="applyFont(this.value)">
-      <option value="'Cormorant Garamond', Georgia, serif">Cormorant (atual)</option>
-      <option value="'Playfair Display', Georgia, serif">Playfair Display</option>
-      <option value="Georgia, serif">Georgia</option>
-    </select>
   </div>
 </div>
 
@@ -957,22 +1015,11 @@ function submitRSVP(e) {
   document.getElementById('rsvp-success').style.display = 'block';
 }
 
-// ── TWEAKS ──
-function applyTweak(key, val) {
-  const map = { navy: '--navy', gold: '--gold' };
-  if (map[key]) document.documentElement.style.setProperty(map[key], val);
-  window.parent.postMessage({ type: '__edit_mode_set_keys', edits: { [key]: val } }, '*');
-}
-function applyFont(val) {
-  document.documentElement.style.setProperty('--serif', val);
-  window.parent.postMessage({ type: '__edit_mode_set_keys', edits: { serifFont: val } }, '*');
-}
-
-window.addEventListener('message', e => {
-  if (e.data?.type === '__activate_edit_mode') document.getElementById('tweaks-panel').style.display = 'block';
-  if (e.data?.type === '__deactivate_edit_mode') document.getElementById('tweaks-panel').style.display = 'none';
-});
-window.parent.postMessage({ type: '__edit_mode_available' }, '*');
+// ── FADE-IN ON SCROLL ──
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+}, { threshold: 0.15 });
+document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 </script>
 </body>
 </html>
