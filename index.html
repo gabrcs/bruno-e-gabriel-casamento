@@ -4,6 +4,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Bruno & Gabriel — 06.06.2026</title>
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
 
@@ -53,11 +58,14 @@
     min-height: 100vh;
     background: var(--navy);
     display: flex; flex-direction: column;
-    align-items: center; justify-content: center;
+    align-items: center; justify-content: flex-start;
     text-align: center;
-    padding: 6rem 2rem 4rem;
+    padding: 7rem 2rem 4rem;
     position: relative; overflow: hidden;
   }
+  .hero-top, .hero-middle, .hero-bottom { position: relative; z-index: 2; width: 100%; text-align: center; }
+  .hero-middle { display: flex; flex-direction: column; align-items: center; margin-top: auto; }
+  .hero-bottom { margin-top: auto; }
   .hero-bg {
     position: absolute; inset: 0; z-index: 0;
   }
@@ -91,27 +99,27 @@
     font-family: var(--sans); font-size: 0.7rem; letter-spacing: 0.3em;
     text-transform: uppercase; color: rgba(255,255,255,0.7);
     margin-bottom: 2rem;
-    text-shadow: 0 2px 10px rgba(0,0,0,0.55);
+    text-shadow: 0 2px 12px rgba(0,0,0,0.9), 0 1px 4px rgba(0,0,0,0.8);
   }
   .hero-names {
     font-family: var(--serif); font-size: clamp(4rem, 10vw, 8rem);
     font-weight: 300; color: var(--white); line-height: 1;
     letter-spacing: 0.02em;
-    text-shadow: 0 4px 20px rgba(0,0,0,0.5), 0 1px 4px rgba(0,0,0,0.4);
+    text-shadow: 0 4px 20px rgba(0,0,0,0.85), 0 1px 4px rgba(0,0,0,0.8);
   }
   .hero-names span { color: var(--white); font-style: italic; }
   .hero-ampersand {
     font-family: var(--serif); font-size: clamp(2rem, 5vw, 4rem);
     color: rgba(255,255,255,0.55); display: block; margin: 0.4rem 0;
     font-style: italic; font-weight: 300;
-    text-shadow: 0 2px 12px rgba(0,0,0,0.5);
+    text-shadow: 0 2px 12px rgba(0,0,0,0.9), 0 1px 4px rgba(0,0,0,0.8);
   }
   .hero-date {
     margin-top: 2.5rem;
     font-family: var(--sans); font-size: 0.78rem;
     letter-spacing: 0.25em; text-transform: uppercase;
     color: var(--gold-light); font-weight: 400;
-    text-shadow: 0 2px 10px rgba(0,0,0,0.55);
+    text-shadow: 0 2px 12px rgba(0,0,0,0.9), 0 1px 4px rgba(0,0,0,0.8);
   }
   .hero-divider {
     width: 60px; height: 1px; background: rgba(255,255,255,0.35);
@@ -125,12 +133,12 @@
   .countdown-num {
     font-family: var(--serif); font-size: 2.8rem;
     color: var(--white); line-height: 1; font-weight: 300;
-    text-shadow: 0 3px 14px rgba(0,0,0,0.5);
+    text-shadow: 0 2px 14px rgba(0,0,0,0.9), 0 1px 4px rgba(0,0,0,0.8);
   }
   .countdown-label {
     font-family: var(--sans); font-size: 0.6rem;
     letter-spacing: 0.2em; text-transform: uppercase;
-    text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+    text-shadow: 0 1px 8px rgba(0,0,0,0.9);
     color: rgba(255,255,255,0.6); margin-top: 0.3rem;
   }
   .scroll-hint {
@@ -612,7 +620,7 @@
         </div>
         <p class="info-card-label">Local</p>
         <p class="info-card-main">Espaço<br>Eccos</p>
-        <p class="info-card-sub">Clique no mapa para ver<br>o endereço completo</p>
+        <p class="info-card-sub">Alameda Bouganville 516<br>Colônia Mariana, Campo Largo - PR</p>
       </div>
     </div>
     <div class="map-wrapper">
