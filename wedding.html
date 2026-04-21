@@ -677,13 +677,20 @@ let gifts = [];
 let currentFilter = 'todos';
 let selectedGiftId = null;
 
-// Carrega lista de presentes + status de compra do Sheets
-async function loadGifts() {
+// Carrega lista de presentes via JSONP (evita CORS)
+function loadGifts() {
   const grid = document.getElementById('gifts-grid');
   grid.innerHTML = '<p style="text-align:center;color:#999;font-family:var(--sans);font-size:0.85rem;padding:3rem 0;">Carregando presentes…</p>';
-  try {
-    const res = await fetch(SHEETS_URL + '?action=get_gifts');
-    const data = await res.json();
+
+  const callbackName = 'sheetsCallback_' + Date.now();
+  const script = document.createElement('script');
+  script.src = SHEETS_URL + '?action=get_gifts&callback=' + callbackName;
+  script.onerror = () => {
+    grid.innerHTML = '<p style="text-align:center;color:#999;font-family:var(--sans);font-size:0.85rem;padding:3rem 0;">Não foi possível carregar a lista. Tente novamente.</p>';
+  };
+  window[callbackName] = (data) => {
+    delete window[callbackName];
+    document.head.removeChild(script);
     if (data.gifts) {
       gifts = data.gifts.map(g => ({
         id:          Number(g.id),
@@ -698,19 +705,24 @@ async function loadGifts() {
       }));
       renderGifts();
     }
-  } catch(e) {
-    grid.innerHTML = '<p style="text-align:center;color:#999;font-family:var(--sans);font-size:0.85rem;padding:3rem 0;">Não foi possível carregar a lista. Tente novamente.</p>';
-    console.warn('Erro ao carregar presentes do Sheets', e);
-  }
+  };
+  document.head.appendChild(script);
 }
 
 async function saveBoughtToSheets(id, buyerName, buyerMsg, giftName) {
-  try {
-    const params = new URLSearchParams({ action: 'buy', id, name: buyerName, giftName, message: buyerMsg });
-    const res = await fetch(SHEETS_URL + '?' + params.toString());
-    const data = await res.json();
-    return data;
-  } catch(e) { console.warn('Erro ao salvar no Sheets'); return { ok: false }; }
+  return new Promise((resolve) => {
+    const callbackName = 'sheetsBuy_' + Date.now();
+    const params = new URLSearchParams({ action: 'buy', id, name: buyerName, giftName, message: buyerMsg, callback: callbackName });
+    const script = document.createElement('script');
+    script.src = SHEETS_URL + '?' + params.toString();
+    script.onerror = () => { delete window[callbackName]; resolve({ ok: false }); };
+    window[callbackName] = (data) => {
+      delete window[callbackName];
+      document.head.removeChild(script);
+      resolve(data);
+    };
+    document.head.appendChild(script);
+  });
 }
 
 function renderGifts() {
