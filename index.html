@@ -563,15 +563,20 @@
     <p style="text-align:center;font-family:var(--sans);font-size:0.85rem;color:#666;margin-top:-1.5rem;margin-bottom:2rem;max-width:500px;margin-left:auto;margin-right:auto;">
       Se quiser nos presentear, escolha um item abaixo. Cada presente será um pedacinho especial da nossa nova vida juntos. ✦
     </p>
-    <div class="filter-row">
-      <button class="filter-btn active" onclick="filterGifts('todos', this)">Todos</button>
-      <button class="filter-btn" onclick="filterGifts('cozinha', this)">Cozinha</button>
-      <button class="filter-btn" onclick="filterGifts('quarto', this)">Quarto</button>
-      <button class="filter-btn" onclick="filterGifts('sala', this)">Sala</button>
-      <button class="filter-btn" onclick="filterGifts('lazer', this)">Lazer</button>
-      <button class="filter-btn" onclick="filterGifts('outros', this)">Outros</button>
+    <div id="gifts-cta" style="text-align:center;margin-bottom:2rem;">
+      <button class="rsvp-submit" style="background:var(--navy);color:var(--white);display:inline-block;width:auto;padding:1rem 2.5rem;" onclick="revealGifts()">Ver lista de presentes</button>
     </div>
-    <div class="gifts-grid" id="gifts-grid"></div>
+    <div id="gifts-body" style="display:none">
+      <div class="filter-row">
+        <button class="filter-btn active" onclick="filterGifts('todos', this)">Todos</button>
+        <button class="filter-btn" onclick="filterGifts('cozinha', this)">Cozinha</button>
+        <button class="filter-btn" onclick="filterGifts('quarto', this)">Quarto</button>
+        <button class="filter-btn" onclick="filterGifts('sala', this)">Sala</button>
+        <button class="filter-btn" onclick="filterGifts('lazer', this)">Lazer</button>
+        <button class="filter-btn" onclick="filterGifts('outros', this)">Outros</button>
+      </div>
+      <div class="gifts-grid" id="gifts-grid"></div>
+    </div>
   </div>
 </section>
 
@@ -818,7 +823,11 @@ document.getElementById('gift-modal').addEventListener('click', function(e) {
   if (e.target === this) closeModal();
 });
 
-loadGifts();
+function revealGifts() {
+  document.getElementById('gifts-cta').style.display = 'none';
+  document.getElementById('gifts-body').style.display = '';
+  loadGifts();
+}
 
 // ── RSVP ──
 function submitRSVP(e) {
