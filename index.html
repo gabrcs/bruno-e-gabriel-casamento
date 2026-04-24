@@ -981,20 +981,21 @@ function confirmBuy() {
   document.getElementById('modal-success-view').style.display = '';
 }
 
-async function handlePayment(url) {
+function handlePayment(url) {
   if (!pendingBuyer || !selectedGiftId || paymentRegistered) return;
   paymentRegistered = true;
-  const gift = gifts.find(g => g.id === selectedGiftId);
-  const result = await saveBoughtToSheets(selectedGiftId, pendingBuyer.name, pendingBuyer.msg, gift ? gift.name : '');
-  if (result && result.reason === 'out_of_stock') {
-    alert('Este presente já foi escolhido por outra pessoa! Por favor escolha outro.');
-    closeModal();
-    loadGifts();
-    return;
-  }
-  if (gift) { gift.bought++; gift.available = Math.max(0, gift.available - 1); }
-  renderGifts();
+  // Open immediately (same user gesture) — browsers block window.open after await
   window.open(url, '_blank');
+  const gift = gifts.find(g => g.id === selectedGiftId);
+  saveBoughtToSheets(selectedGiftId, pendingBuyer.name, pendingBuyer.msg, gift ? gift.name : '')
+    .then(result => {
+      if (result && result.reason === 'out_of_stock') {
+        loadGifts();
+        return;
+      }
+      if (gift) { gift.bought++; gift.available = Math.max(0, gift.available - 1); }
+      renderGifts();
+    });
 }
 
 document.getElementById('gift-modal').addEventListener('click', function(e) {
